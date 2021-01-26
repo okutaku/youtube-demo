@@ -2,14 +2,18 @@ import React, { createContext, useReducer} from 'react'
 
 //stateとdispatch関数の追加
 const initialState = {
-  popular: []
+  popular: [],
+  selected: {}
 }
 
+//initialStateに複数のデータが含まれていたら、スプレット構文を使い、state追加。マージされるわけでなく、上書きされるためstateを展開せずに行うと、きえる
 const reducer = (state, action) => {
   switch(action.type) {
     case 'SET_POPULAR':
-      return{ popular: action.payload.popular }
-    default:
+      return{ ...state, popular: action.payload.popular }
+    case 'SET_SELECTED':
+      return { ...state, selected: action.payload.selected}
+      default:
       return state
   }
 }
